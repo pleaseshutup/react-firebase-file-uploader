@@ -126,10 +126,11 @@ export default class FirebaseFileUploader extends Component<Props> {
             ),
           error => this.props.onUploadError && this.props.onUploadError(error, task),
           () => {
+            console.log('task is', task)
             this.removeTask(task);
             return (
               this.props.onUploadSuccess &&
-              this.props.onUploadSuccess(task.snapshot.metadata.name, task)
+              this.props.onUploadSuccess(task && task.snapshot && task.snapshot.metadata && task.snapshot.metadata.name || 'no_name_set', task)
             );
           }
         );
